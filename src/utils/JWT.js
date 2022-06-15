@@ -12,20 +12,20 @@ const generateToken = (payload) => {
   return jwt.sign(obj, JWT_SECRET, jwtConfig);
 };
 
-const authenticateToken = (token) => {
+const verifyToken = (token) => {
   if (!token) {
-    throw new Error(JSON.stringify({ status: 401, message: 'Campo token é obrigatorio.' }));
+    throw new Error(JSON.stringify({ status: 401, message: 'Token not found' }));
   }
 
   try {
     const result = jwt.verify(token, JWT_SECRET, jwtConfig);
     return result;
   } catch (e) {
-    throw new Error(JSON.stringify({ status: 401, message: 'Token inválido.' }));
+    throw new Error(JSON.stringify({ status: 401, message: 'Expired or invalid token' }));
   }
 };
 
 module.exports = {
   generateToken,
-  authenticateToken,
+  verifyToken,
 };
