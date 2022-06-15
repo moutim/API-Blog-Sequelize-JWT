@@ -23,7 +23,20 @@ const getUsers = async () => {
   return users;
 };
 
+const getUser = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    throw new Error(JSON.stringify({ status: 404, message: 'User does not exist' }));
+  }
+
+  delete user.dataValues.password;
+
+  return user;
+};
+
 module.exports = {
   createUser,
   getUsers,
+  getUser,
 };
