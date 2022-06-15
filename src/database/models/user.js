@@ -1,6 +1,5 @@
 const user = (sequelize, DataTypes) => {
   const tableUser = sequelize.define("User", {
-    id: DataTypes.INTEGER,
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -16,4 +15,4 @@ const user = (sequelize, DataTypes) => {
   return tableUser;
 }
 
-module.exports = usuarios;
+module.exports = user;
