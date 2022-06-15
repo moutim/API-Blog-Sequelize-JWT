@@ -8,6 +8,8 @@ const middlewares = require('../middlewares');
 
 routes.get('/', middlewares.authenticateToken, controller.getUsers);
 
+routes.get('/:id', middlewares.authenticateToken, controller.getUser);
+
 routes.post('/', middlewares.verifyBodyUser, controller.createUser);
 
 module.exports = routes;
