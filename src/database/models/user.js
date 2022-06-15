@@ -1,5 +1,5 @@
-const usuarios = (sequelize, DataTypes) => {
-  const tabelaUsuarios = sequelize.define("User", {
+const user = (sequelize, DataTypes) => {
+  const tableUser = sequelize.define("User", {
     id: DataTypes.INTEGER,
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -7,13 +7,13 @@ const usuarios = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
   }, { timestamps: false });
 
-  tabelaUsuarios.associate = (models) => {
-    tabelaUsuarios.belongsTo(models.Permissoes, {
-      foreignKey: 'permissaoId', as: 'permissao'
+  tableUser.associate = (models) => {
+    tableUser.hasOne(models.BlogPosts, {
+      foreignKey: 'userId', as: 'posts'
     });
   };
 
-  return tabelaUsuarios;
+  return tableUser;
 }
 
 module.exports = usuarios;
