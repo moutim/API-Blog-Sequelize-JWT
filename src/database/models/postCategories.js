@@ -9,7 +9,7 @@ const postCategories = (sequelize, DataTypes) => {
       foreignKey: 'userId', as: 'user'
     });
 
-    tablePostCategories.belongsTo(models.Categories, {
+    tablePostCategories.belongsTo(models.Category, {
       foreignKey: 'categoryId', as: 'category'
     });
   };
