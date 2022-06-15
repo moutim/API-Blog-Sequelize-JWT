@@ -8,7 +8,7 @@ const login = async ({ email, password }) => {
     throw new Error(JSON.stringify({ status: 400, message: 'Invalid fields' }));
   }
 
-  const token = generateToken(JSON.stringify(user));
+  const token = generateToken(JSON.stringify({ email: user.email }));
 
   return token;
 };
