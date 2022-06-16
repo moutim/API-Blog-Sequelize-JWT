@@ -1,5 +1,5 @@
 const { User } = require('../database/models');
-const { generateToken } = require('../utils/JWT');
+const { generateToken, decodeToken } = require('../utils/JWT');
 
 const createUser = async (body) => {
   const user = await User.findOne({ where: { email: body.email } });
@@ -53,9 +53,27 @@ const updateUser = async (body, id) => {
   }
 };
 
+const deleteUser = async (authorization) => {
+  const { email } = decodeToken(authorization);
+
+  const checkUser = User.findOne({ where: { email } });
+  if (!checkUser) {
+    throw new Error(JSON.stringify({ status: 404, message: 'Users not found' }));
+  }
+
+  try {
+    const user = await User.destroy({ where: { email } });
+
+    return user;
+  } catch (e) {
+    throw new Error(JSON.stringify({ status: 500, message: e.message }));
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
+  deleteUser,
 };
