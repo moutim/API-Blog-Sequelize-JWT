@@ -17,4 +17,6 @@ routes.put('/:id',
   middlewares.verifyBodyUser,
   controller.updateUser);
 
+routes.delete('/me', middlewares.authenticateToken, controller.deleteUser);
+
 module.exports = routes;
