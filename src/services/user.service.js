@@ -2,6 +2,12 @@ const { User } = require('../database/models');
 const { generateToken } = require('../utils/JWT');
 
 const createUser = async (body) => {
+  const user = await User.findOne({ where: { email: body.email } });
+
+  if (user) {
+    throw new Error(JSON.stringify({ status: 409, message: 'User already registered' }));
+  }
+
   try {
     const { dataValues: { email } } = await User.create(body);
 
@@ -35,8 +41,21 @@ const getUser = async (id) => {
   return user;
 };
 
+const updateUser = async (body, id) => {
+  try {
+    await getUser(id);
+
+    const user = await User.update(body, { where: { id } });
+
+    return user;
+  } catch (e) {
+    throw new Error(JSON.stringify({ status: 500, message: e.message }));
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
+  updateUser,
 };
