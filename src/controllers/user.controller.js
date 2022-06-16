@@ -30,9 +30,18 @@ const updateUser = async (req, res) => {
   res.status(200).json({ id, ...req.body });
 };
 
+const deleteUser = async (req, res) => {
+  const { authorization } = req.headers;
+
+  await service.deleteUser(authorization);
+
+  res.status(204).end();
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
+  deleteUser,
 };
