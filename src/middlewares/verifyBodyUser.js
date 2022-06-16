@@ -1,5 +1,3 @@
-const { User } = require('../database/models');
-
 const verifyDisplayName = (name) => {
   if (name.length < 8) {
     throw new Error(JSON.stringify(
@@ -9,12 +7,6 @@ const verifyDisplayName = (name) => {
 };
 
 const verifyEmail = async (email) => {
-  const user = await User.findOne({ where: { email } });
-
-  if (user) {
-    throw new Error(JSON.stringify({ status: 409, message: 'User already registered' }));
-  }
-
   const regex = /\S+@\S+\.\S+/;
 
   if (!regex.test(email)) {
