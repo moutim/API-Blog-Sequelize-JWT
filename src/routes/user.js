@@ -12,4 +12,9 @@ routes.get('/:id', middlewares.authenticateToken, controller.getUser);
 
 routes.post('/', middlewares.verifyBodyUser, controller.createUser);
 
+routes.put('/:id',
+  middlewares.authenticateToken,
+  middlewares.verifyBodyUser,
+  controller.updateUser);
+
 module.exports = routes;
