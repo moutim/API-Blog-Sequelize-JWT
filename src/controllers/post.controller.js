@@ -19,8 +19,17 @@ const getPost = async (req, res) => {
   res.status(200).json(post);
 };
 
+const updatePost = async (req, res) => {
+  await service.updatePost(req.body, req.params.id);
+  
+  const post = await service.getPost(req.params.id);
+
+  res.status(200).json(post);
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
+  updatePost,
 };
