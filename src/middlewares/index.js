@@ -5,6 +5,7 @@ const authenticateToken = require('./authenticateToken');
 const verifyBodyCategories = require('./verifyBodyCategories');
 const verifyBodyPost = require('./verifyBodyPost');
 const verifyUpdatePost = require('./verifyUpdatePost');
+const verifyIdentity = require('./verifyIdentity');
 
 module.exports = {
   errorHandler,
@@ -14,4 +15,5 @@ module.exports = {
   verifyBodyCategories,
   verifyBodyPost,
   verifyUpdatePost,
+  verifyIdentity,
 };
