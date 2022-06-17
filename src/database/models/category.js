@@ -8,8 +8,8 @@ const category = (sequelize, DataTypes) => {
   }, { timestamps: false });
 
   tableCategory.associate = (models) => {
-    tableCategory.hasMany(models.PostCategories, {
-      foreignKey: 'categoryId', as: 'PostCategories'
+    tableCategory.hasMany(models.PostCategory, {
+      foreignKey: 'categoryId', as: 'post'
     });
   };
 

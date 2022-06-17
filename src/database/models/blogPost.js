@@ -15,6 +15,10 @@ const blogPosts = (sequelize, DataTypes) => {
     tableBlogPosts.belongsTo(models.User, {
       foreignKey: 'userId', as: 'user'
     });
+
+    tableBlogPosts.hasMany(models.PostCategory, {
+      foreignKey: 'postId', as: 'category'
+    });
   };
 
   return tableBlogPosts;
