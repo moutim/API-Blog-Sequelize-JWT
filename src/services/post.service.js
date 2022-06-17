@@ -130,8 +130,21 @@ const getPost = async (id) => {
   return post;
 };
 
+const updatePost = async (body, id) => {
+  try {
+    await getPost(id);
+
+    const user = await BlogPost.update(body, { where: { id } });
+
+    return user;
+  } catch (e) {
+    throw new Error(JSON.stringify({ status: 500, message: e.message }));
+  }
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
+  updatePost,
 };
