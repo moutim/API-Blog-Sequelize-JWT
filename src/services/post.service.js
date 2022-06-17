@@ -108,7 +108,30 @@ const getPosts = () => {
   return posts;
 };
 
+const getPost = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category,
+        as: 'categories',
+        attributes: ['id', 'name'],
+        // https://stackoverflow.com/questions/30082625/cant-exclude-associations-fields-from-select-statement-in-sequelize
+        through: {
+        attributes: [],
+        }, 
+      },
+    ],
+  });
+
+  if (!post) {
+    throw new Error(JSON.stringify({ status: 404, message: 'Post does not exist' }));
+  }
+
+  return post;
+};
+
 module.exports = {
   createPost,
   getPosts,
+  getPost,
 };
