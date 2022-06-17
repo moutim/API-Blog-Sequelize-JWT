@@ -10,4 +10,6 @@ routes.use('/user', require('./user'));
 
 routes.use('/categories', middlewares.authenticateToken, require('./categories'));
 
+routes.use('/post', middlewares.authenticateToken, require('./post'));
+
 module.exports = routes;
