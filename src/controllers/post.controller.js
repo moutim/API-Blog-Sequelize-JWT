@@ -8,12 +8,19 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   const posts = await service.getPosts();
-  console.log(posts.BlogPost);
 
   res.status(200).json(posts);
+};
+
+const getPost = async (req, res) => {
+  const { id } = req.params;
+  const post = await service.getPost(id);
+
+  res.status(200).json(post);
 };
 
 module.exports = {
   createPost,
   getPosts,
+  getPost,
 };
