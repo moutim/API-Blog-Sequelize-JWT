@@ -90,6 +90,25 @@ const createPost = async (body, authorization) => {
   return result;
 };
 
+const getPosts = () => {
+  const posts = BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category,
+        as: 'categories',
+        attributes: ['id', 'name'],
+        // https://stackoverflow.com/questions/30082625/cant-exclude-associations-fields-from-select-statement-in-sequelize
+        through: {
+        attributes: [],
+        }, 
+      },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };
