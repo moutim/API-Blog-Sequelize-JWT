@@ -8,6 +8,8 @@ const middlewares = require('../middlewares');
 
 routes.get('/', controller.getPosts);
 
+routes.get('/:id', controller.getPost);
+
 routes.post('/', middlewares.verifyBodyPost, controller.createPost);
 
 module.exports = routes;
