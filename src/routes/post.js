@@ -12,6 +12,11 @@ routes.get('/:id', controller.getPost);
 
 routes.post('/', middlewares.verifyBodyPost, controller.createPost);
 
-routes.put('/:id', middlewares.verifyUpdatePost, controller.updatePost);
+routes.put('/:id',
+  middlewares.verifyIdentity,
+  middlewares.verifyUpdatePost,
+  controller.updatePost);
+
+routes.delete('/:id', middlewares.verifyIdentity, controller.deletePost);
 
 module.exports = routes;
