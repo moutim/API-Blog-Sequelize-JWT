@@ -134,9 +134,21 @@ const updatePost = async (body, id) => {
   try {
     await getPost(id);
 
-    const user = await BlogPost.update(body, { where: { id } });
+    const post = await BlogPost.update(body, { where: { id } });
 
-    return user;
+    return post;
+  } catch (e) {
+    throw new Error(JSON.stringify({ status: 500, message: e.message }));
+  }
+};
+
+const deletePost = async (id) => {
+  try {
+    await getPost(id);
+
+    const post = await BlogPost.destroy({ where: { id } });
+
+    return post;
   } catch (e) {
     throw new Error(JSON.stringify({ status: 500, message: e.message }));
   }
@@ -147,4 +159,5 @@ module.exports = {
   getPosts,
   getPost,
   updatePost,
+  deletePost,
 };
