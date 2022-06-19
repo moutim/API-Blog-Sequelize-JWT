@@ -4,6 +4,7 @@ const { decodeToken } = require('../utils/JWT');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
+const { Op } = Sequelize;
 
 const verifyCategories = async (categories) => {
   const validate = await Promise.all(
@@ -154,10 +155,33 @@ const deletePost = async (id) => {
   }
 };
 
+const searchPost = async (term) => {
+  const post = await BlogPost.findAll({
+    where: {
+      // https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+      [Op.or]: [
+        { title: { [Op.like]: `%${term}%` } },
+        { content: { [Op.like]: `%${term}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category,
+        as: 'categories',
+        attributes: ['id', 'name'],
+        through: { attributes: [] }, 
+      },
+    ],
+  });
+
+  return post;
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
   updatePost,
   deletePost,
+  searchPost,
 };
